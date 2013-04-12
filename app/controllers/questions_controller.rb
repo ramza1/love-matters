@@ -1,7 +1,12 @@
 class QuestionsController < BaseController
   load_and_authorize_resource
   def index
-    @questions = Question.accessible_by(current_ability).recent
+    if current_user
+      @questions = Question.accessible_by(current_ability).order('created_at desc')
+    else
+      @questions = Question.accessible_by(current_ability).recent
+    end
+
 
     respond_to do |format|
       format.html # index.html.erb
@@ -47,6 +52,7 @@ class QuestionsController < BaseController
     @question.user = current_user if current_user
     if params[:question][:answer].present?
       @question.answered_by = current_user.id
+      @question.answered_at = Time.zone.now
     end
 
     respond_to do |format|
@@ -68,6 +74,7 @@ class QuestionsController < BaseController
     @question = Question.find(params[:id])
     if params[:question][:answer].present?
       @question.answered_by = current_user.id
+      @question.answered_at = Time.zone.now if @question.answered_at.nil?
     end
 
     respond_to do |format|

@@ -20,7 +20,8 @@
 <% end %>
 
 
-
-<%= link_to 'Edit', edit_question_path(@question) %> |
+<% if can? :manage, @question %>
+<%= link_to 'Edit/answer', edit_question_path(@question) %> |
 <%= link_to 'Delete', @question, method: :delete %>
 <%= link_to 'Back', questions_path %>
+<% end %>

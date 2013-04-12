@@ -26,3 +26,6 @@
     font-size: 12px;
 }
 
+.special_email_field{
+    display: none;
+}

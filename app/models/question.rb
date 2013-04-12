@@ -6,7 +6,7 @@ class Question < ActiveRecord::Base
   validates :name, :email, presence: true, unless: :moderator
   validates_presence_of :answer, message: "this question and try again", if: :moderator
   scope :answered_questions, -> {where("answer not in (?)", "nil")}
-  scope :recent, order("created_at desc")
+  scope :recent, order("answered_at desc")
 
   def self.send_emails(id)
     find(id).send_emails
