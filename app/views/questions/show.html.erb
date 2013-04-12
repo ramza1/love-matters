@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+    <div class="post-info">
+      <%= @question.created_at.to_date.to_s(:long) %>
+      BY <% if @question.name.present? %> <%= @question.name %> <% else %> <%= @question.user.display_name %> <% end %>
+    </div>
+
+<p>
+  <%= @question.question %>
+</p>
+
+<% if @question.answer.present?%>
+
+<p>
+  <%= @question.answer %>
+</p>
+
+<% else %>
+    <%= link_to "Answer Question", edit_question_path(@question) %>
+<% end %>
+
+
+
+<%= link_to 'Edit', edit_question_path(@question) %> |
+<%= link_to 'Delete', @question, method: :delete %>
+<%= link_to 'Back', questions_path %>

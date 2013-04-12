@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LoveMatters</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+<div id="wrap">
+  <div id="header">
+    <div id="title-area">
+      <h1 id="title">
+        <a href="http://www.punchng.com/"></a>
+      </h1>
+    </div>
+    <div class="widget-area">
+      <span id="date-for-today"><%= Time.zone.now.to_date.to_s(:long) %></span>
+      <%= raw open("http://www.punchng.com/header/").read%>
+    </div>
+  </div>
+  <%= raw open("http://www.punchng.com/menu").read%>
+<div id="inner">
+  <div id="content-sidebar-wrap">
+    <div id="content" class="hfeed">
+      <div class="post-22 post type-post status-publish format-standard hentry category-uncategorized entry">
+        <h1 class="entry-title">LOVE MATTERS</h1>
+        <%= yield %>
+      </div>
+    </div>
+    <div id="sidebar" class="sidebar widget-area">
+      <div class="widget widget_text">
+        <div class="widget-wrap">
+          <div>
+
+            <%= raw open("http://www.punchng.com/sidebar/").read%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+ <div id="footer" class="footer">
+   <div class="wrap">
+     <div class="gototop">
+       <p><a href="http://blogs.punchng.com/kemiashefon/2013/04/03/love-matters-4/#wrap" rel="nofollow">Return to top of page</a></p>
+     </div>
+     <div class="creds">
+       <p>Copyright © <%=  Time.now.year %>
+         <% if current_user %>
+             <%= link_to "Log in", destroy_user_session_path, method: :delete %>
+             <%= link_to "Moderators", users_path %>
+         <% else %>
+             <%= link_to "Sign in", new_user_session_path %>
+         <% end %>
+         <%= link_to "Ask Question", new_question_path %>
+         <%= link_to "Questions", questions_path %>
+       </p>
+     </div>
+   </div>
+ </div>
+</div>
+</body>
+</html>

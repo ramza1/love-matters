@@ -1,0 +1,14 @@
+<%= div_for question do %>
+ <div class="post-info">
+   <%= question.created_at.to_date.to_s(:long) %>
+      BY <% if question.name.present? %> <%= question.name %> <% else %> <%= question.user.display_name %> <% end %>
+ </div>
+ <%= link_to truncate(question.question, length: 400, omission: "...more"), question, class: "no-decoration" %>
+ <% if can? :manage, question%>
+ <div class="question-options">
+   <%= link_to "Edit Question", edit_question_path(question) %>
+   <%= link_to "Delete Question", question, method: :delete, data: {confirm: "Are you sure"} %>
+   <%= link_to "Answer Question", edit_question_path(question) unless question.answer.present? %>
+ </div>
+ <% end %>
+<% end %>
